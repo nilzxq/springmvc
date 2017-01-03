@@ -1,5 +1,7 @@
 package com.nilzxq.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -10,11 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nilzxq.object.Admin;
 import com.nilzxq.object.User;
+import com.nilzxq.object.UserListForm;
 
 /**
  *@author zxq @date 2017年1月3日
  *@controller 注解使类生效
- *@RequestMapping（value="",meithod = RequestMethod.GET） 指定请求和方法
+ *@RequestMapping（value="",method = RequestMethod.GET） 指定请求和方法
  *@RequestParam（value="",required = true）value参数别名 required 是否必传默认为true
  */
 @Controller
@@ -64,5 +67,13 @@ public class TestController {
 	@InitBinder("admin")
 	public void intAdmin(WebDataBinder binder){
 	binder.setFieldDefaultPrefix("admin.");
+	}
+	
+	//绑定list是通过索引的方式，索引要连续，不连续会造成前后台数据大小不一致浪费后台的存储空间。
+	//http://localhost:8080/springmvc/list.do?users[0].name=Tome&users[1].name=Lily&users[20].name=Jane
+	@RequestMapping(value="list.do")
+	@ResponseBody
+	public String List(UserListForm userListForm){
+		return "listSize:"+userListForm.getUsers().size()+" "+userListForm.toString();	
 	}
 }
