@@ -107,4 +107,10 @@ public class TestController {
 	public String json(@RequestBody User user){
 		return user.toString();	
 	}
+	
+	@RequestMapping(value="xml.do")
+	@ResponseBody
+	public String xml(@RequestBody Admin admin){
+		return admin.toString();	
+	}
 }

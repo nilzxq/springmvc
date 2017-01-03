@@ -1,14 +1,19 @@
 package com.nilzxq.object;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author zxq @date 2017年1月3日
  *
  */
+@XmlRootElement(name="admin")
 public class Admin {
 
-	 private String name;
+	    private String name;
 	    private Integer age;
 
+	    @XmlElement(name="name")
 	    public String getName() {
 	        return name;
 	    }
@@ -16,7 +21,7 @@ public class Admin {
 	    public void setName(String name) {
 	        this.name = name;
 	    }
-
+	    @XmlElement(name="age")
 	    public Integer getAge() {
 	        return age;
 	    }
