@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nilzxq.object.Admin;
 import com.nilzxq.object.User;
 import com.nilzxq.object.UserListForm;
+import com.nilzxq.object.UserMapForm;
 import com.nilzxq.object.UserSetForm;
 
 /**
@@ -91,5 +92,12 @@ public class TestController {
 	@ResponseBody
 	public String set(UserSetForm userSetForm){
 		return userSetForm.toString();	
+	}
+	
+	//TODO http://localhost:8080/springmvc/map.do?users[%27X%27].name=Tom&users[%27X%27].age=10&users[%27Y%27].name=Lucy
+	@RequestMapping(value="map.do")
+	@ResponseBody
+	public String map(UserMapForm userMapForm){
+		return userMapForm.toString();	
 	}
 }
