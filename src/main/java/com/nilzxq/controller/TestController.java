@@ -102,12 +102,27 @@ public class TestController {
 		return userMapForm.toString();	
 	}
 	
+//  {
+//  "name": "Jim",
+//      "age": 16,
+//      "contactInfo": {
+//          "address": "beijing",
+//          "phone": "10010"
+//        }
+//}
+//application/json
 	@RequestMapping(value="json.do")
 	@ResponseBody
 	public String json(@RequestBody User user){
 		return user.toString();	
 	}
 	
+//  <?xml version="1.0" encoding="UTF-8" ?>
+//  <admin>
+//    <name>Jim</name>
+//    <age>16</age>
+//  </admin>
+  //application/xml
 	@RequestMapping(value="xml.do")
 	@ResponseBody
 	public String xml(@RequestBody Admin admin){
