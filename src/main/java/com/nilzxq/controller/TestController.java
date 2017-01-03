@@ -148,8 +148,13 @@ public class TestController {
         return date1.toString();
     }
 	
-	 @InitBinder("date1")
-	    public void initDate1(WebDataBinder binder){
-	        binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
+//	 @InitBinder("date1")
+//	    public void initDate1(WebDataBinder binder){
+//	        binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
+//	    }
+	 @RequestMapping(value = "date2.do")
+	    @ResponseBody
+	     public String date2(Date date2){
+	        return date2.toString();
 	    }
 }
