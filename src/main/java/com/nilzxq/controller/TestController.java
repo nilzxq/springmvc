@@ -1,11 +1,14 @@
 package com.nilzxq.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nilzxq.object.Admin;
 import com.nilzxq.object.User;
 
 /**
@@ -44,10 +47,22 @@ public class TestController {
 	//TODO http://localhost:8080/springmvc/object.do?name=tome&age=10
 	//当前对象的下级属性 类.属性
 	//TODO http://localhost:8080/springmvc/object.do?name=tome&age=10&contactInfo.phone=10086
+	//TODO http://localhost:8080/springmvc/object.do?user.name=tome&admin.name=array&age=10
+	
 	@RequestMapping(value="object.do")
 	@ResponseBody
-	public String object(User user){
-		
-		return user.toString();	
+	public String object(User user,Admin admin){
+		return user.toString()+" "+admin.toString();	
+	}
+	//在url中传递参数的出现同属性时，可以通过InitBinder方法进行初始化，在属性前加前缀来区别，
+	//若没加前缀则是共有的
+	
+	@InitBinder("user")
+	public void intUser(WebDataBinder binder){
+	binder.setFieldDefaultPrefix("user.");
+	}
+	@InitBinder("admin")
+	public void intAdmin(WebDataBinder binder){
+	binder.setFieldDefaultPrefix("admin.");
 	}
 }
