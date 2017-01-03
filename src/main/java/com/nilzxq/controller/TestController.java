@@ -1,7 +1,10 @@
 package com.nilzxq.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -128,4 +131,25 @@ public class TestController {
 	public String xml(@RequestBody Admin admin){
 		return admin.toString();	
 	}
+	
+//	在请求的Url中设置日期类型的字符串传递的时候，报400错，说明日期绑定失败，
+//	如何使得Url中的日期与controller方法中入参类型为Date的对象绑定呢？这时，
+//	我们就需要注册自定义属性编辑器。如图，@InitBinder("date1")限定参数为date1，
+//	通过Url请求时，先执行有此注解的方法，该方法，向数据绑定器注册了新的自定义的属性编辑器，
+//	将Date类型的value设置为SimpleDateFormat("yyyy-MM-DD"),
+//	假如Url传递的参数为date1=2020-02-20,那么就会将Date参数直接格式化为yyyy-MM-DD格式，
+//	并作为controller方法的参数。完成绑定，可见，通过注解实现自定义参数绑定只需要注意两点：
+//	①使用注解，绑定传递的参数，形如@InitBinder("date1")，绑定的参数为date1,
+//	②基于此注解的方法，必须有一个参数，且参数类型为WebDataBinder,
+//	通过调用该对象的registerCustomEdior(_,_)实现自定义属性转换的注册。
+	@RequestMapping(value = "date1.do")
+    @ResponseBody
+    public String date1(Date date1){
+        return date1.toString();
+    }
+	
+	 @InitBinder("date1")
+	    public void initDate1(WebDataBinder binder){
+	        binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
+	    }
 }
