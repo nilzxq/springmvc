@@ -28,4 +28,14 @@ public class TestController {
 	public String baseType2(Integer age){
 		return "age:"+age;	
 	}
+	//数组
+	@RequestMapping(value="array.do")
+	@ResponseBody
+	public String array(String[] name){
+		StringBuffer sbf=new StringBuffer();
+		for(String item:name){
+			sbf.append(item).append(" ");
+		}
+		return sbf.toString();	
+	}
 }
