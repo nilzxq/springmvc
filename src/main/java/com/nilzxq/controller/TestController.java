@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nilzxq.object.Admin;
 import com.nilzxq.object.User;
 import com.nilzxq.object.UserListForm;
+import com.nilzxq.object.UserSetForm;
 
 /**
  *@author zxq @date 2017年1月3日
@@ -75,5 +76,20 @@ public class TestController {
 	@ResponseBody
 	public String List(UserListForm userListForm){
 		return "listSize:"+userListForm.getUsers().size()+" "+userListForm.toString();	
+	}
+	
+	//使用Set的时候需要先进行初始化
+	//要使用Set的排重功能必须在对象中覆写hashcode和equals方法。
+	//SpringMVC对Set支持并不太好，初始化进行排重时会导致size变小，致使无法接受更多的数据而抛出异常，所以我们开发一般优先使用List。
+	//List和Set绑定需要一个信息收集对象
+	//1、Set进行数据绑定时必须进行初始化，而List则不用
+	//2、Set一般用于重复判断或排除重复
+	//3、Set进行数据绑定与List非常相似，但必须初始化，并指定size空间。否则会抛出异常，形如List的序号跨界如果超出了size范围也是不允许的。
+	//4、要使用Set的排重功能必须在对象中覆写hashcode和equals方法。
+	//SpringMVC对Set支持并不太好，初始化进行排重时会导致size变小，致使无法接受更多的数据而抛出异常，所以我们开发一般优先使用List。
+	@RequestMapping(value="set.do")
+	@ResponseBody
+	public String set(UserSetForm userSetForm){
+		return userSetForm.toString();	
 	}
 }
