@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nilzxq.object.User;
+
 /**
  *@author zxq @date 2017年1月3日
  *@controller 注解使类生效
@@ -37,5 +39,12 @@ public class TestController {
 			sbf.append(item).append(" ");
 		}
 		return sbf.toString();	
+	}
+
+	@RequestMapping(value="object.do")
+	@ResponseBody
+	public String object(User user){
+		
+		return user.toString();	
 	}
 }
