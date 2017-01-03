@@ -41,6 +41,9 @@ public class TestController {
 		return sbf.toString();	
 	}
 
+	//TODO http://localhost:8080/springmvc/object.do?name=tome&age=10
+	//当前对象的下级属性 类.属性
+	//TODO http://localhost:8080/springmvc/object.do?name=tome&age=10&contactInfo.phone=10086
 	@RequestMapping(value="object.do")
 	@ResponseBody
 	public String object(User user){
